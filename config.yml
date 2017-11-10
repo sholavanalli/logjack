@@ -1,0 +1,31 @@
+# Configuration for directory scanner.
+--- !!com.labs.srh.logjack.config.DirectoryScannerConfig
+# Frequency of directory scanning.
+directoryScanIntervalMillis: 500
+# Number of parallel log file readers.
+numberOfLogFileReaders: 10
+# Abolute or relative path (relative to the dir in which this program in run) to the log file dir to be scanned.
+directoryPathToScan: .
+
+# Configuration for log file reader.
+--- !!com.labs.srh.logjack.config.LogFileReaderConfig
+# Maximum number of log lines to read at once.
+maxLogLinesToReadAtOnce: 100
+# Time in millis to wait if the end of log file is reached. If the log file is not very active then this number can be set higher.
+logFileReadIntervalMillis: 100
+
+# Configuration for sender type.
+--- !!com.labs.srh.logjack.config.SenderTypeConfig
+# Type of sender
+type: http
+
+# Configuration for sender that sends log lines to a REST URL.
+--- !!com.labs.srh.logjack.config.HttpLogLinesSenderConfig
+# HTTP POST URL to which the log lines JSON must be posted.
+httpPostUrl: http://localhost/rest/log
+# User name for authentication.
+userName: srh
+# Password for authentication.
+password: srh
+# Amount of time in millis to wait to resend the log lines if the HTP POST operation fails.
+retryIntervalMillis: 5000
