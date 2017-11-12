@@ -4,5 +4,5 @@ Logjack reads log files and moves log lines to configured sender. A directory sc
 
 Application configuration is in config.yml. 
 
-To build the project: ./gradlew build
+To build the project: ./gradlew build 
 To run: java -jar build/libs/logjack-1.0-SNAPSHOT.jar
