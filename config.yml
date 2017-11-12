@@ -4,7 +4,7 @@
 directoryScanIntervalMillis: 500
 # Number of parallel log file readers.
 numberOfLogFileReaders: 10
-# Abolute or relative path (relative to the dir in which this program in run) to the log file dir to be scanned.
+# Path to the log file dir to be scanned.
 directoryPathToScan: .
 
 # Configuration for log file reader.
