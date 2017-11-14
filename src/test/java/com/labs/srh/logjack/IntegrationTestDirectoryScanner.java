@@ -27,6 +27,6 @@ public class IntegrationTestDirectoryScanner {
 
     @Test
     public void testRun() throws Exception {
-//        directoryScanner.run();
+        directoryScanner.run();
     }
 }
