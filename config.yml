@@ -23,7 +23,7 @@ type: http
 --- !!com.labs.srh.logjack.config.HttpLogLinesSenderConfig
 # HTTP POST URL to which the log lines JSON must be posted.
 httpPostUrl: http://localhost/rest/log
-# User name for authentication.
+# User name for authentication. No authentication if left undefined.
 userName: srh
 # Password for authentication.
 password: srh

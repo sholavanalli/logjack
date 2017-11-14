@@ -7,3 +7,7 @@ Application configuration is in config.yml.
 To build the project: ./gradlew build 
 
 To run: java -jar build/libs/logjack-1.0-SNAPSHOT.jar
+
+Senders
+
+http: Sends log lines to HTTP post URL with basic authentication if username and password is provided. Retries after specified time if HTTP post call fails.

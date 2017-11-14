@@ -19,7 +19,7 @@ import java.util.List;
 
 import static org.mockito.Mockito.*;
 
-public class TestLogLinesSender {
+public class TestHttpLogLinesSender {
 
     @Test
     public void testHttpSend() throws Exception {

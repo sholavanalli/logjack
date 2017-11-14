@@ -31,8 +31,8 @@ public class App {
     }
 
     @Bean
-    public CustomHttpClient customHttpClient() {
-        return new CustomHttpClient();
+    public CustomHttpClient customHttpClient(AppConfig appConfig) {
+        return new CustomHttpClient(appConfig);
     }
 
     // Application beans -----------------------------------------------------------------------------------------------
@@ -52,9 +52,9 @@ public class App {
     @Bean
     public LogLinesSender logLinesSender(AppConfig appConfig) {
         if ("http".equals(appConfig.getSenderTypeConfig())) {
-            return new HttpLogLinesSender(appConfig.getHttpLogLinesSenderConfig(), customHttpClient());
+            return new HttpLogLinesSender(appConfig.getHttpLogLinesSenderConfig(), customHttpClient(appConfig));
         } else {
-            return new HttpLogLinesSender(appConfig.getHttpLogLinesSenderConfig(), customHttpClient());
+            return new HttpLogLinesSender(appConfig.getHttpLogLinesSenderConfig(), customHttpClient(appConfig));
         }
     }
 
