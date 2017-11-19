@@ -77,7 +77,9 @@ public class TestLogFileReader {
 
         // Verify the 2 log lines are sent to log lines sender.
         InOrder inOrder = inOrder(logLinesSenderMock);
-        inOrder.verify(logLinesSenderMock).send(eq(Arrays.asList(new LogMessage("line1"), new LogMessage("line2"))));
+        inOrder.verify(logLinesSenderMock).send(eq(Arrays.asList(
+                new LogMessage("line1", logFilePath.getFileName().toString()),
+                new LogMessage("line2", logFilePath.getFileName().toString()))));
 
         // Write 4 lines to log file. This is one more than max lines to read from log file.
         writeLinesToLogFile("line3", "line4", "line5", "line6");
@@ -85,9 +87,12 @@ public class TestLogFileReader {
 
         // Verify the 4 new lines appended are sent in 2 batches to the log lines sender. 3 lines are sent first and
         // the remaining 1 is sent next.
-        inOrder.verify(logLinesSenderMock).send(eq(Arrays.asList(new LogMessage("line3"), new LogMessage("line4"),
-                new LogMessage("line5"))));
-        inOrder.verify(logLinesSenderMock).send(eq(Collections.singletonList(new LogMessage("line6"))));
+        inOrder.verify(logLinesSenderMock).send(eq(Arrays.asList(
+                new LogMessage("line3", logFilePath.getFileName().toString()),
+                new LogMessage("line4", logFilePath.getFileName().toString()),
+                new LogMessage("line5", logFilePath.getFileName().toString()))));
+        inOrder.verify(logLinesSenderMock).send(eq(Collections.singletonList(
+                new LogMessage("line6", logFilePath.getFileName().toString()))));
 
         // Verify no more interactions with log lines sender.
         verifyNoMoreInteractions(logLinesSenderMock);

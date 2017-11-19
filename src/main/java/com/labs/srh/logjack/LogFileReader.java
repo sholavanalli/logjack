@@ -67,7 +67,7 @@ public class LogFileReader {
         try (RandomAccessFile randomAccessFile = new RandomAccessFile(readContext.getLogFilePath().toFile(), "r")) {
             randomAccessFile.seek(readContext.getCurrentFilePointer());
             while (numOfLinesRead < readContext.getMaxLinesToRead() && randomAccessFile.getFilePointer() < randomAccessFile.length()) {
-                logMessages.add(new LogMessage(randomAccessFile.readLine()));
+                logMessages.add(new LogMessage(randomAccessFile.readLine(), readContext.getLogFilePath().getFileName().toString()));
                 numOfLinesRead++;
             }
             readContext.setHasEndOfLogFileReached(randomAccessFile.getFilePointer() >= randomAccessFile.length());
@@ -97,10 +97,6 @@ public class LogFileReader {
             return logFilePath;
         }
 
-        private void setLogFilePath(Path logFilePath) {
-            this.logFilePath = logFilePath;
-        }
-
         private boolean isHasEndOfLogFileReached() {
             return hasEndOfLogFileReached;
         }
@@ -119,10 +115,6 @@ public class LogFileReader {
 
         private int getMaxLinesToRead() {
             return maxLinesToRead;
-        }
-
-        private void setMaxLinesToRead(int maxLinesToRead) {
-            this.maxLinesToRead = maxLinesToRead;
         }
     }
 }
