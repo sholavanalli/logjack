@@ -66,9 +66,7 @@ public class HttpLogLinesSender implements LogLinesSender {
 
     private String toJson(List<LogMessage> logMessages) {
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-        logMessages.forEach(msg -> {
-            jsonArrayBuilder.add(msg.toJsonObjectBuilder());
-        });
+        logMessages.forEach(msg -> jsonArrayBuilder.add(msg.toJsonObjectBuilder()));
         return jsonArrayBuilder.build().toString();
     }
 }

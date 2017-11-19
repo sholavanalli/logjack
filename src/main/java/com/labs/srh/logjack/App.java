@@ -51,7 +51,7 @@ public class App {
 
     @Bean
     public LogLinesSender logLinesSender(AppConfig appConfig) {
-        if ("http".equals(appConfig.getSenderTypeConfig())) {
+        if ("http".equals(appConfig.getSenderTypeConfig().getType())) {
             return new HttpLogLinesSender(appConfig.getHttpLogLinesSenderConfig(), customHttpClient(appConfig));
         } else {
             return new HttpLogLinesSender(appConfig.getHttpLogLinesSenderConfig(), customHttpClient(appConfig));

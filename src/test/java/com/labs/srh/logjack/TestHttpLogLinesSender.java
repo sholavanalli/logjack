@@ -23,7 +23,7 @@ public class TestHttpLogLinesSender {
 
     @Test
     public void testHttpSend() throws Exception {
-        List<LogMessage> logMessages = Arrays.asList(new LogMessage("line1"), new LogMessage("line2"));
+        List<LogMessage> logMessages = Arrays.asList(new LogMessage("line1", "apache.log"), new LogMessage("line2", "apache.log"));
         HttpLogLinesSenderConfig httpLogLinesSenderConfigMock = new HttpLogLinesSenderConfig("http://localhost/rest/log", "", "", 100);
         CustomHttpClient closeableHttpClientMock = mock(CustomHttpClient.class);
         CloseableHttpResponse closeableHttpResponseMock = mock(CloseableHttpResponse.class);
@@ -60,9 +60,7 @@ public class TestHttpLogLinesSender {
 
     private String toJson(List<LogMessage> logMessages) {
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
-        logMessages.forEach(msg -> {
-            jsonArrayBuilder.add(msg.toJsonObjectBuilder());
-        });
+        logMessages.forEach(msg -> jsonArrayBuilder.add(msg.toJsonObjectBuilder()));
         return jsonArrayBuilder.build().toString();
     }
 }

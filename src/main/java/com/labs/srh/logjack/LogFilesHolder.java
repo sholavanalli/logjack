@@ -2,6 +2,7 @@ package com.labs.srh.logjack;
 
 import java.nio.file.Path;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
  */
 public class LogFilesHolder {
 
-    private static final Logger log = Logger.getLogger(LogFileReader.class.getName());
+    private static final Logger log = Logger.getLogger(LogFilesHolder.class.getName());
 
     private Set<LogFile> logFiles;
 
@@ -27,6 +28,7 @@ public class LogFilesHolder {
             logFile.setActive(true);
             logFiles.add(logFile);
         } else {
+            log.info(String.format(Locale.US, "Found new log file: %s", logFile.getPath().getFileName()));
             logFile.setActive(true);
             logFile.setNew(true);
             logFiles.add(logFile);
@@ -37,13 +39,17 @@ public class LogFilesHolder {
      * Remove inactive log files and reset active and new flags.
      */
     public void refresh() {
-        logFiles = logFiles.stream()
-                .filter(LogFile::isActive)
-                .map(l -> {
-                    l.setActive(false);
-                    l.setNew(false);
-                    return l;
-                }).collect(Collectors.toSet());
+        Set<LogFile> newLogFiles = new HashSet<>();
+        for (LogFile logFile : logFiles) {
+            if (logFile.isActive()) {
+                logFile.setActive(false);
+                logFile.setNew(false);
+                newLogFiles.add(logFile);
+            } else {
+                log.info(String.format(Locale.US, "Removing inactive log file: %s", logFile.getPath().getFileName()));
+            }
+        }
+        logFiles = newLogFiles;
     }
 
     public Set<Path> getNewLogFilePaths() {
